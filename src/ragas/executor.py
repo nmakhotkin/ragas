@@ -5,14 +5,12 @@ import logging
 import typing as t
 from dataclasses import dataclass, field
 
-import nest_asyncio
 import numpy as np
 from tqdm.auto import tqdm
 
 from ragas.run_config import RunConfig
 from ragas.utils import batched
 
-nest_asyncio.apply()
 
 logger = logging.getLogger(__name__)
 
@@ -218,10 +216,8 @@ class Executor:
         """
         Execute all submitted jobs and return their results. The results are returned in the order of job submission.
         """
-        coro = self._process_jobs()
-    
-        results = await coro
-         
+        results = await self._process_jobs()
+
         sorted_results = sorted(results, key=lambda x: x[0])
         return [r[1] for r in sorted_results]
 
