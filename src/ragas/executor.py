@@ -214,6 +214,17 @@ class Executor:
         sorted_results = sorted(results, key=lambda x: x[0])
         return [r[1] for r in sorted_results]
 
+    async def aresults(self) -> t.List[t.Any]:
+        """
+        Execute all submitted jobs and return their results. The results are returned in the order of job submission.
+        """
+        coro = self._process_jobs()
+    
+        results = await coro
+         
+        sorted_results = sorted(results, key=lambda x: x[0])
+        return [r[1] for r in sorted_results]
+
 
 def run_async_batch(
     desc: str,

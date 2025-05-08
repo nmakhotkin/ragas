@@ -54,7 +54,7 @@ RAGAS_EVALUATION_CHAIN_NAME = "ragas evaluation"
 
 
 @track_was_completed
-def evaluate(
+async def evaluate(
     dataset: t.Union[Dataset, EvaluationDataset],
     metrics: t.Optional[t.Sequence[Metric]] = None,
     llm: t.Optional[BaseRagasLLM | LangchainLLM] = None,
@@ -291,7 +291,7 @@ def evaluate(
     scores: t.List[t.Dict[str, t.Any]] = []
     try:
         # get the results
-        results = executor.results()
+        results = await executor.aresults()
         if results == []:
             raise ExceptionInRunner()
 
